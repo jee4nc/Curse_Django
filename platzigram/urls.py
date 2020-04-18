@@ -7,5 +7,6 @@ from platzigram import view
 
 urlpatterns = [
     path('hello-wordl/', view.hello_world), #la ruta hello-worl retorna la funcion
-    path('hi/', view.hi),
+    path('sorted/', view.sortedNumbers),
+    path('hi/<str:name>/<int:age>/', view.sayHi)
 ]

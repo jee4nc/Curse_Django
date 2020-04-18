@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 #Utilidades
 from datetime import datetime
-
+import json
 
 
 def hello_world(request):   # funcion que recibe un request como parametro
@@ -18,6 +18,24 @@ def hello_world(request):   # funcion que recibe un request como parametro
     (now=now))
     # {} sirve para concadenar en python y se setea formato
 
-def hi(request):
-    import pdb; pdb.set_trace()
-    return HttpResponse('Hi!')
+def sortedNumbers(request):
+  #ordena los numeros con sorted
+
+    numbers = [int(i) for i in request.GET['numbers'].split(',')]
+    sorted_inst = sorted(numbers)
+    data = {
+      'status': 'ok',
+      'numbers': sorted_inst,
+      'message': 'Intergers sorted succesfully'
+    }
+    return HttpResponse(json.dumps(data, indent=4),
+     content_type='application/json')
+
+def sayHi(request, name, age):
+  #Return a greeting
+
+  if age < 14:
+    message = 'Sorry {}, you are not allowed here'.format(name) #{} y al final .format(name) setea el valor
+  else:
+    message = 'Hello {}!, Welcome to Platzigram'.format(name)
+  return HttpResponse(message)
